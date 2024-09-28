@@ -16,7 +16,7 @@ class CrewMate:
         
         # Write your code here
         self.load = 0
-        self.treasure_heap = Heap(self._compare_func())
+        self.treasure_heap = Heap(self._compare_func,[])
         self.last_time = 0
         self.sec_last_time = 0
 
@@ -37,25 +37,84 @@ class CrewMate:
 
         self.sec_last_time = self.last_time
         self.last_time = treasure.arrival_time
+
         self.change_size_in_time()
 
         self.treasure_heap.insert(treasure)
 
     def change_size_in_time(self):
-        time = self.sec_last_time -self.last_time
+        time = self.last_time -self.sec_last_time
         c = self.sec_last_time
-        while time > 0:
-            temp = self.treasure_heap.top()
-            if time >= temp.size:
-                time -= temp.size
-                c += temp.size
-                temp.size = 0
-                self.treasure_heap.extract()
-                temp.completion_time = c
-            else:
-                temp.size -= time
-                time = 0
-                c = time2
+        if self.sec_last_time != 0 :
+            while time > 0:
+                print(time)
+                if self.treasure_heap.top() != None:
+                    if time >= self.treasure_heap.top().size:
+                        time -= self.treasure_heap.top().size
+                        c += self.treasure_heap.top().size
+                        self.treasure_heap.top().size = 0
+                        self.treasure_heap.top().completion_time = c
+                        self.treasure_heap.extract()
+                    else:
+                        self.treasure_heap.top().size -= time
+                        time = 0
+                        c = self.last_time
+                else:
+                    break
+
+
+
+
+##########   TESTING ############
+
+crew = CrewMate()
+
+print("load-",crew.load)
+print("heap-",end='')
+lis = crew.treasure_heap.init_array
+print([i.size for i in lis])
+print("last_time -",crew.last_time)
+print("secomd_last_time - ",crew.sec_last_time)
+print("-"*50)
+
+tresure1 = Treasure(1001,4,4)
+crew.add_treasure_in_crew(tresure1)
+
+print("load-",crew.load)
+print("heap-",end='')
+lis = crew.treasure_heap.init_array
+print([i.size for i in lis])
+print("last_time -",crew.last_time)
+print("secomd_last_time - ",crew.sec_last_time)
+print("-"*50)
+
+tresure2 = Treasure(1003,1,5)
+crew.add_treasure_in_crew(tresure2)
+
+print("load-",crew.load)
+print("heap-",end='')
+lis = crew.treasure_heap.init_array
+print([i.size for i in lis])
+print("last_time -",crew.last_time)
+print("secomd_last_time - ",crew.sec_last_time)
+print("-"*50)
+
+tresure3 = Treasure(1006,4,14)
+crew.add_treasure_in_crew(tresure3)
+
+print("load-",crew.load)
+lis = crew.treasure_heap.init_array
+print("curr_heap - ",[i.size for i in lis])
+
+print("last_time -",crew.last_time)
+print("secomd_last_time - ",crew.sec_last_time)
+print("-"*50)
+
+print(tresure1.completion_time)
+print(tresure2.completion_time)
+print(tresure3.completion_time)
+
+
 
 
 

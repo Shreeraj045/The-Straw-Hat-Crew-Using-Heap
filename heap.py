@@ -124,7 +124,7 @@ class Heap:
 
 # ######################      TESTING         #################
 
-def min_comparator(x, y):
-    return x < y
-heap = Heap(min_comparator,[6,5,2,7,3,5,1,1.5,1.8,1.1])
-heap.print_tree()
+# def min_comparator(x, y):
+#     return x < y
+# heap = Heap(min_comparator,[6,5,2,7,3,5,1,1.5,1.8,1.1])
+# heap.print_tree()
