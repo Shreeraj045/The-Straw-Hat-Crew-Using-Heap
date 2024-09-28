@@ -45,7 +45,7 @@ class CrewMate:
         self.treasure_heap.insert(treasure_inter)
 
     def change_size_in_time(self):
-        time = self.last_time -self.sec_last_time
+        time = self.last_time - self.sec_last_time
         c = self.sec_last_time
         if self.sec_last_time != 0 :
             while time > 0:
@@ -54,15 +54,30 @@ class CrewMate:
                     if time >= self.treasure_heap.top().size:
                         time -= self.treasure_heap.top().size
                         c += self.treasure_heap.top().size
+                        self.load -= self.treasure_heap.top().size
                         self.treasure_heap.top().size = 0
                         self.treasure_heap.top().set_completion_time(c)
                         self.treasure_heap.extract()
+
                     else:
                         self.treasure_heap.top().size -= time
+                        self.load -= time
                         time = 0
                         c = self.last_time
                 else:
                     break
+
+    def just_completion_time(self):
+        copy_heap = self.treasure_heap
+        c = self.last_time
+        while copy_heap.top() != None :
+            c += copy_heap.top().size
+            copy_heap.top().completion_time = c
+            copy_heap.extract()
+
+
+
+
 
 
 
@@ -102,7 +117,7 @@ print("last_time -",crew.last_time)
 print("secomd_last_time - ",crew.sec_last_time)
 print("-"*50)
 
-tresure3 = Treasure(1006,4,14)
+tresure3 = Treasure(1006,4,6)
 crew.add_treasure_in_crew(tresure3)
 
 print("load-",crew.load)
@@ -116,6 +131,10 @@ print("-"*50)
 print(tresure1.completion_time)
 print(tresure2.completion_time)
 print(tresure3.completion_time)
+print("-"*50)
+
+crew.just_completion_time()
+print(crew.last_time)
 
 
 

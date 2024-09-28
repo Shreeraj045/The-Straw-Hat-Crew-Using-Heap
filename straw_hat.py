@@ -49,7 +49,6 @@ class StrawHatTreasury:
                 m : Number of Crew Mates
                 n : Number of Treasures
         '''
-        # Write your code here
         custom_treasure = Inter_treasure(treasure)
         self.treasure_list.append(custom_treasure)
         temp = self.crew_heap.extract()
@@ -58,19 +57,19 @@ class StrawHatTreasury:
 
     def get_completion_time(self):
         '''
-        Arguments:
-            None
-        Returns:
-            List[Treasure] : List of treasures in the order of their completion after updating Treasure.completion_time
-        Description:
-            Returns all the treasure after processing them
-        Time Complexity:
-            O(n(log(m) + log(n))) where
-                m : Number of Crew Mates
-                n : Number of Treasures
+            Arguments:
+                None
+            Returns:
+                List[Treasure] : List of treasures in the order of their ids after updating Treasure.completion_time
+            Description:
+                Returns all the treasure after processing them
+            Time Complexity:
+                O(n(log(m) + log(n))) where
+                    m : Number of Crew Mates
+                    n : Number of Treasures
         '''
-        
         # Write your code here
         pass
+
     
     # You can add more methods if required
