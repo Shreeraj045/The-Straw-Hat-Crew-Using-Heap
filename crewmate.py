@@ -35,9 +35,22 @@ class CrewMate:
         self.treasure_heap.insert(treasure)
 
     def change_size_at_time(self,time1,time2):
-        priority_max = self.treasure_heap.init_array[0].priority()
-        priority_max2 = max(self.treasure_heap.init_array[1].priority(),self.treasure_heap.init_array[2].priority())
-        diff = priority_max - priority_max2
+        # priority_max = self.treasure_heap.init_array[0].priority()
+        time = time2-time1
+        c = time1
+        while time > 0:
+            temp = self.treasure_heap.top()
+            if time >= temp.size:
+                time -= temp.size
+                c += temp.size
+                temp.size = 0
+                self.treasure_heap.extract()
+                temp.completion_time = c
+            else:
+                temp.size -= time
+                time = 0
+                c = time2
+
 
 
 
