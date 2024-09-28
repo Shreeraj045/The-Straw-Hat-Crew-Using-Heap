@@ -29,3 +29,7 @@ class CrewMate:
         self.load += treasure.size
         self.treasure_heap.insert(treasure)
 
+    def change_size_at_time(self,time):
+        
+
+

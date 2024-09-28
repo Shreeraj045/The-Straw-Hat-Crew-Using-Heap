@@ -26,11 +26,14 @@ class StrawHatTreasury:
 
 
         self.number = m
-        self.crew_heap = Heap(self.compare_func())
+        self.crew_heap = Heap(self.compare_func1())
+        self.treasure_heap = Heap(self.compare_func2())
 
 
-    def compare_func(self,crew1:CrewMate,crew2:CrewMate):
+    def compare_func1(self,crew1:CrewMate,crew2:CrewMate):
         return crew1.load < crew2.load
+    def compare_func2(self,treasure1:Treasure,treasure2:Treasure):
+        return treasure1.id < treasure2.id
 
     def add_treasure(self, treasure):
         '''
@@ -45,10 +48,12 @@ class StrawHatTreasury:
                 m : Number of Crew Mates
                 n : Number of Treasures
         '''
-        
         # Write your code here
-        pass
-    
+        self.treasure_heap.insert(treasure)
+        temp = self.crew_heap.extract()
+        temp.add_treasure_in_crew(treasure)
+        self.crew_heap.insert(temp)
+
     def get_completion_time(self):
         '''
         Arguments:
