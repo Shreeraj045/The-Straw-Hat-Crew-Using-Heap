@@ -89,7 +89,8 @@ class StrawHatTreasury:
     
     # You can add more methods if required
 
-
+#################   TESTING #################
+print("_"*20,"start testing","_"*20)
 
 #################   TESTING #################
 print("_"*20,"start testing","_"*20)
@@ -149,3 +150,31 @@ straw.get_completion_time()
 print("-"*50)
 
 
+
+#################   TESTING #################
+print("_"*20,"start testing","_"*20)
+
+straw = StrawHatTreasury(3)
+treasure1 = Treasure(1001,8,1)
+straw.add_treasure(treasure1)
+print("load-",[i.load for i in straw.crew_heap.init_array])
+straw.get_completion_time()
+print("-"*50)
+
+treasure2 = Treasure(1002,7,2)
+straw.add_treasure(treasure2)
+print("load-",[i.load for i in straw.crew_heap.init_array])
+straw.get_completion_time()
+print("-"*50)
+
+treasure3 = Treasure(1003,4,4)
+straw.add_treasure(treasure3)
+print("load-",[i.load for i in straw.crew_heap.init_array])
+straw.get_completion_time()
+print("-"*50)
+
+treasure4 = Treasure(1004,1,5)
+straw.add_treasure(treasure4)
+print("load-",[i.load for i in straw.crew_heap.init_array])
+straw.get_completion_time()
+print("-"*50)
