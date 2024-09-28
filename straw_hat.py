@@ -74,7 +74,14 @@ class StrawHatTreasury:
                     n : Number of Treasures
         '''
         # Write your code here
-        pass
+        for j in self.crew_heap.init_array :
+            i.just_completion_time()
 
+        for i in self.treasure_list:
+            print(i)
     
     # You can add more methods if required
+
+#################   TESTING #################
+print("_"*20,"start testing","_"*20)
+

@@ -36,12 +36,9 @@ class CrewMate:
     def add_treasure_in_crew(self,treasure:Treasure):
         treasure_inter = treasure
         self.load += treasure_inter.size
-
         self.sec_last_time = self.last_time
         self.last_time = treasure_inter.arrival_time
-
         self.change_size_in_time()
-
         self.treasure_heap.insert(treasure_inter)
 
     def change_size_in_time(self):
@@ -54,31 +51,28 @@ class CrewMate:
                     if time >= self.treasure_heap.top().size:
                         time -= self.treasure_heap.top().size
                         c += self.treasure_heap.top().size
-                        self.load -= self.treasure_heap.top().size
+                        # self.load -= self.treasure_heap.top().size
                         self.treasure_heap.top().size = 0
                         self.treasure_heap.top().completion_time = c
                         self.treasure_heap.extract()
 
                     else:
                         self.treasure_heap.top().size -= time
-                        self.load -= time
+                        # self.load -= time
                         time = 0
                         c = self.last_time
                 else:
                     break
 
     def just_completion_time(self):
-        copy_heap = self.treasure_heap
+        array = self.treasure_heap.copy_heap()
         c = self.last_time
-        while copy_heap.top() != None :
-            c += copy_heap.top().size
-            copy_heap.top().completion_time = c
-            copy_heap.extract()
-
-
-
-
-
+        while self.treasure_heap.top() != None :
+            c += self.treasure_heap.top().size
+            self.treasure_heap.top().completion_time = c
+            self.treasure_heap.extract()
+        for i in array:
+            self.treasure_heap.insert(i)
 
 
 

@@ -121,7 +121,8 @@ class Heap:
         Prints the heap in a tree-like format.
         '''
         print(self.init_array)
-
+    def copy_heap(self):
+        return self.init_array[:]
 # ######################      TESTING         #################
 
 # def min_comparator(x, y):
