@@ -26,4 +26,6 @@ class Treasure:
         self.completion_time = None
     
     # You can add more methods if required
+    def priority(self):
+        return self.arrival_time + self.size
 

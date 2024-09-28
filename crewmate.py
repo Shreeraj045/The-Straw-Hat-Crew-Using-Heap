@@ -24,7 +24,7 @@ class CrewMate:
 
     # Add more methods if required
 
-    def _compare_func(self,tresure1:Inter_treasure,tresure2:Inter_treasure):
+    def _compare_func(self,tresure1:Treasure,tresure2:Treasure):
         # return tresure1.size < tresure2.size
         p1 = tresure1.priority()
         p2 = tresure2.priority()
@@ -34,7 +34,7 @@ class CrewMate:
             return tresure1.id < tresure2.id
 
     def add_treasure_in_crew(self,treasure:Treasure):
-        treasure_inter = Inter_treasure(treasure)
+        treasure_inter = treasure
         self.load += treasure_inter.size
 
         self.sec_last_time = self.last_time
@@ -56,7 +56,7 @@ class CrewMate:
                         c += self.treasure_heap.top().size
                         self.load -= self.treasure_heap.top().size
                         self.treasure_heap.top().size = 0
-                        self.treasure_heap.top().set_completion_time(c)
+                        self.treasure_heap.top().completion_time = c
                         self.treasure_heap.extract()
 
                     else:
