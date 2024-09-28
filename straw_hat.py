@@ -29,8 +29,8 @@ class StrawHatTreasury:
         self.crew_heap = Heap(self.compare_func())
 
 
-    def compare_func(self):
-        return
+    def compare_func(self,crew1:CrewMate,crew2:CrewMate):
+        return crew1.load < crew2.load
 
 
     def add_treasure(self, treasure):
