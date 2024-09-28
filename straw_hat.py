@@ -5,6 +5,7 @@
 from crewmate import CrewMate
 from heap import Heap
 from treasure import Treasure
+from custom import Inter_treasure
 
 class StrawHatTreasury:
     '''
@@ -49,9 +50,10 @@ class StrawHatTreasury:
                 n : Number of Treasures
         '''
         # Write your code here
-        self.treasure_list.append(treasure)
+        custom_treasure = Inter_treasure(treasure)
+        self.treasure_list.append(custom_treasure)
         temp = self.crew_heap.extract()
-        temp.add_treasure_in_crew(treasure)
+        temp.add_treasure_in_crew(custom_treasure)
         self.crew_heap.insert(temp)
 
     def get_completion_time(self):

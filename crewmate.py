@@ -1,6 +1,7 @@
 # Python file to implement the class CrewMate
 from heap import Heap
 from treasure import Treasure
+from custom import Inter_treasure
 class CrewMate:
     # Class to implement a crewmate
     def __init__(self):
@@ -23,7 +24,7 @@ class CrewMate:
 
     # Add more methods if required
 
-    def _compare_func(self,tresure1:Treasure,tresure2:Treasure):
+    def _compare_func(self,tresure1:Inter_treasure,tresure2:Inter_treasure):
         # return tresure1.size < tresure2.size
         p1 = tresure1.priority()
         p2 = tresure2.priority()
@@ -33,14 +34,15 @@ class CrewMate:
             return tresure1.id < tresure2.id
 
     def add_treasure_in_crew(self,treasure:Treasure):
-        self.load += treasure.size
+        treasure_inter = Inter_treasure(treasure)
+        self.load += treasure_inter.size
 
         self.sec_last_time = self.last_time
-        self.last_time = treasure.arrival_time
+        self.last_time = treasure_inter.arrival_time
 
         self.change_size_in_time()
 
-        self.treasure_heap.insert(treasure)
+        self.treasure_heap.insert(treasure_inter)
 
     def change_size_in_time(self):
         time = self.last_time -self.sec_last_time
@@ -53,7 +55,7 @@ class CrewMate:
                         time -= self.treasure_heap.top().size
                         c += self.treasure_heap.top().size
                         self.treasure_heap.top().size = 0
-                        self.treasure_heap.top().completion_time = c
+                        self.treasure_heap.top().set_completion_time(c)
                         self.treasure_heap.extract()
                     else:
                         self.treasure_heap.top().size -= time
@@ -89,6 +91,7 @@ print("secomd_last_time - ",crew.sec_last_time)
 print("-"*50)
 
 tresure2 = Treasure(1003,1,5)
+
 crew.add_treasure_in_crew(tresure2)
 
 print("load-",crew.load)
