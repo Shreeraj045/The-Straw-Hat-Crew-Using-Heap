@@ -23,7 +23,12 @@ class CrewMate:
 
     def _compare_func(self,tresure1:Treasure,tresure2:Treasure):
         # return tresure1.size < tresure2.size
-        return tresure1.priority() < tresure2.priority()
+        p1 = tresure1.priority()
+        p2 = tresure2.priority()
+        if p1 != p2:
+            return p1 < p2
+        else:
+            return tresure1.id < tresure2.id
 
     def add_treasure_in_crew(self,treasure:Treasure):
         self.load += treasure.size

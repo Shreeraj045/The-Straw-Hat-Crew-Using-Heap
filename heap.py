@@ -126,5 +126,5 @@ class Heap:
 
 def min_comparator(x, y):
     return x < y
-heap = Heap(min_comparator,[3,2,1,4,2,10,1])
+heap = Heap(min_comparator,[6,5,2,7,3,5,1,1.5,1.8,1.1])
 heap.print_tree()
