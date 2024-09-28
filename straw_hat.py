@@ -30,7 +30,7 @@ class StrawHatTreasury:
 
 
     def compare_func(self):
-
+        return
 
 
     def add_treasure(self, treasure):

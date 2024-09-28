@@ -1,9 +1,3 @@
-'''
-Python Code to implement a heap with general comparison function
-'''
-
-
-
 class Heap:
     '''
     Class to implement a heap with general comparison function
