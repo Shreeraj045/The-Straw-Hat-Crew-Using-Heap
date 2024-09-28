@@ -32,7 +32,6 @@ class StrawHatTreasury:
     def compare_func(self,crew1:CrewMate,crew2:CrewMate):
         return crew1.load < crew2.load
 
-
     def add_treasure(self, treasure):
         '''
         Arguments:
