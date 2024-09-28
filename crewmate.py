@@ -17,6 +17,8 @@ class CrewMate:
         # Write your code here
         self.load = 0
         self.treasure_heap = Heap(self._compare_func())
+        self.last_time = 0
+        self.sec_last_time = 0
 
 
     # Add more methods if required
@@ -32,12 +34,16 @@ class CrewMate:
 
     def add_treasure_in_crew(self,treasure:Treasure):
         self.load += treasure.size
+
+        self.sec_last_time = self.last_time
+        self.last_time = treasure.arrival_time
+        self.change_size_in_time()
+
         self.treasure_heap.insert(treasure)
 
-    def change_size_at_time(self,time1,time2):
-        # priority_max = self.treasure_heap.init_array[0].priority()
-        time = time2-time1
-        c = time1
+    def change_size_in_time(self):
+        time = self.sec_last_time -self.last_time
+        c = self.sec_last_time
         while time > 0:
             temp = self.treasure_heap.top()
             if time >= temp.size:
