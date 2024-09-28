@@ -16,7 +16,7 @@ class CrewMate:
         
         # Write your code here
         self.load = 0
-        self.treasure_heap = Heap(self._compare_func)
+        self.treasure_heap = Heap(self._compare_func())
 
 
     # Add more methods if required
