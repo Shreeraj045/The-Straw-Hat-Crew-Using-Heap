@@ -20,12 +20,9 @@ class StrawHatTreasury:
         return crew1.load < crew2.load
 
     def add_treasure(self, treasure:Treasure):
-        # print("times1- ",self.last_time , self.sec_last_time)
         self.sec_last_time = self.last_time
         self.last_time = treasure.arrival_time
         time_diff = self.last_time - self.sec_last_time
-        # print("times2- ", self.last_time, self.sec_last_time)
-        # print("time diff - ",time_diff)
         for i in self.crew_heap.init_array:
             i.load -= time_diff
             if i.load < 0 : i.load = 0
@@ -35,20 +32,10 @@ class StrawHatTreasury:
         self.crew_heap.insert(temp)
 
     def get_completion_time(self):
-        # Write your code here
         for j in self.crew_heap.init_array :
             j.just_completion_time()
+        return self.treasure_list
 
-        lis = []
-        for i in self.treasure_list:
-            lis.append(i.completion_time)
-            print(i.completion_time,end=' ')
-            # print(lis)
-        return lis
-    
-    # You can add more methods if required
-
-#
 # #################   TESTING #################
 # print("_"*20,"start testing","_"*20)
 #
