@@ -1,24 +1,5 @@
 class Heap:
-    '''
-    Class to implement a heap with general comparison function
-    '''
-
     def __init__(self, comparison_function, init_array):
-        '''
-        Arguments:
-            comparison_function : function : A function that takes in two arguments and returns a boolean value
-            init_array : List[Any] : The initial array to be inserted into the heap
-        Returns:
-            None
-        Description:
-            Initializes a heap with a comparison function
-            Details of Comparison Function:
-                The comparison function should take in two arguments and return a boolean value
-                If the comparison function returns True, it means that the first argument is to be considered smaller than the second argument
-                If the comparison function returns False, it means that the first argument is to be considered greater than or equal to the second argument
-        Time Complexity:
-            O(n) where n is the number of elements in init_array
-        '''
         self.init_array = init_array
         self.comparator = comparison_function
         # Write your code here
@@ -28,32 +9,11 @@ class Heap:
         pass
 
     def insert(self, value):
-        '''
-        Arguments:
-            value : Any : The value to be inserted into the heap
-        Returns:
-            None
-        Description:
-            Inserts a value into the heap
-        Time Complexity:
-            O(log(n)) where n is the number of elements currently in the heap
-        '''
         self.init_array.append(value)
         self._upheap(len(self.init_array)-1)
         return
 
     def extract(self):
-        '''
-        Arguments:
-            None
-        Returns:
-            Any : The value extracted from the top of heap
-        Description:
-            Extracts the value from the top of heap, i.e. removes it from heap
-        Time Complexity:
-            O(log(n)) where n is the number of elements currently in the heap
-        '''
-
         if len(self) == 0:
             return None
         self._swap(0, len(self) - 1)
@@ -62,16 +22,6 @@ class Heap:
         return element
 
     def top(self):
-        '''
-        Arguments:
-            None
-        Returns:
-            Any : The value at the top of heap
-        Description:
-            Returns the value at the top of heap
-        Time Complexity:
-            O(1)
-        '''
         if len(self.init_array) == 0:
             return None
         return self.init_array[0]
@@ -115,17 +65,5 @@ class Heap:
                 self._swap(index, small_child)
                 self._downheap(small_child)
                 self._downheap(small_child)
-
-    def print_tree(self):
-        '''
-        Prints the heap in a tree-like format.
-        '''
-        print(self.init_array)
     def copy_heap(self):
         return self.init_array[:]
-# ######################      TESTING         #################
-
-# def min_comparator(x, y):
-#     return x < y
-# heap = Heap(min_comparator,[6,5,2,7,3,5,1,1.5,1.8,1.1])
-# heap.print_tree()
