@@ -20,6 +20,18 @@ class StrawHatTreasury:
         return crew1.load < crew2.load
 
     def add_treasure(self, treasure:Treasure):
+        '''
+            Arguments:
+                treasure : Treasure : The treasure to be added to the treasury
+            Returns:
+                None
+            Description:
+                Adds the treasure to the treasury
+            Time Complexity:
+                O(log(m) + log(n)) where
+                    m : Number of Crew Mates
+                    n : Number of Treasures
+        '''
         self.sec_last_time = self.last_time
         self.last_time = treasure.arrival_time
         time_diff = self.last_time - self.sec_last_time
@@ -32,6 +44,18 @@ class StrawHatTreasury:
         self.crew_heap.insert(temp)
 
     def get_completion_time(self):
+        '''
+            Arguments:
+                None
+            Returns:
+                List[Treasure] : List of treasures in the order of their completion after updating Treasure.completion_time
+            Description:
+                Returns all the treasure after processing them
+            Time Complexity:
+                O(n(log(m) + log(n))) where
+                    m : Number of Crew Mates
+                    n : Number of Treasures
+        '''
         for j in self.crew_heap.init_array :
             j.just_completion_time()
         return self.treasure_list

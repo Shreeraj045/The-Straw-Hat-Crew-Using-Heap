@@ -54,6 +54,9 @@ class CrewMate:
         for i in array:
             self.treasure_heap.insert(i)
 
+    def curr_load(self,time):
+
+
 # ##########   TESTING ############
 #
 # crew = CrewMate()
