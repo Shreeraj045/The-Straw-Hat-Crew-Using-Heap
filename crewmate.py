@@ -55,6 +55,7 @@ class CrewMate:
             self.treasure_heap.insert(i)
 
     def curr_load(self,time):
+        self.load -= (time-self.last_time)
 
 
 # ##########   TESTING ############

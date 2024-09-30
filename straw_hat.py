@@ -48,7 +48,7 @@ class StrawHatTreasury:
             Arguments:
                 None
             Returns:
-                List[Treasure] : List of treasures in the order of their completion after updating Treasure.completion_time
+                List[Treasure] : List of treasures in the order of their ids after updating Treasure.completion_time
             Description:
                 Returns all the treasure after processing them
             Time Complexity:
