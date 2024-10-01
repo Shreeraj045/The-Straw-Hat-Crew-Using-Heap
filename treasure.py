@@ -18,7 +18,6 @@ class Treasure:
         Description:
             Initializes the treasure
         '''
-        
         # DO NOT EDIT THE __init__ method
         self.id = id
         self.size = size
