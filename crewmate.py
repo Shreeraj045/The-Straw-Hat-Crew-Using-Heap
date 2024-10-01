@@ -25,6 +25,8 @@ class CrewMate:
 
     def change_size_in_time(self):
         time = self.last_time - self.sec_last_time
+        self.load -= time
+        if self.load < 0 : self.load = 0
         c = self.sec_last_time
         if self.sec_last_time != 0 :
             while time > 0:
