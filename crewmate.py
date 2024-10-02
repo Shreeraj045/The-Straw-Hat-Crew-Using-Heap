@@ -16,12 +16,13 @@ class CrewMate:
             return tresure1.id < tresure2.id
 
     def add_treasure_in_crew(self,treasure:Treasure):
-        treasure_inter = treasure
-        self.load += treasure_inter.size
+        # if self.treasure_heap.top() == None:
+        #     self.load += treasure.arrival_time
+        self.load += treasure.size
         self.sec_last_time = self.last_time
-        self.last_time = treasure_inter.arrival_time
+        self.last_time = treasure.arrival_time
         self.change_size_in_time()
-        self.treasure_heap.insert(treasure_inter)
+        self.treasure_heap.insert(treasure)
 
     def change_size_in_time(self):
         time = self.last_time - self.sec_last_time
@@ -57,7 +58,9 @@ class CrewMate:
             self.treasure_heap.insert(i)
 
     def curr_load(self,time):
-        self.load -= (time-self.last_time)
+        curr_load = self.load - (time-self.last_time)
+        if curr_load <0 :curr_load = 0
+        return curr_load
 
 
 # ##########   TESTING ############

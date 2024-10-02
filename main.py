@@ -2,7 +2,7 @@ from straw_hat import *
 from heap import *
 from treasure import *
 import random
-
+import time
 
 random.seed(42)
 
@@ -131,7 +131,7 @@ class StupidHeap:
 def main(n=10**3, m=20):
     format_len = 25
     workers = m
-    print("[+] Welcome to Ani's Testcase (V1.0), this will be a comprehensive testcase and will automatically check for correctness.\n[*] Do not rely on this for time complexity testing, it is not accurate.\n[!] Unlike last time, this testcase will strictly adhere to possible operations, any errors indicate an issue in your code.\n[!] If you think that there is an error in the testcase or if I'm missing something, dm me whatsapp pr")
+    print("[+] Welcome to Ani's Testcase (V3.0) [still in development, this tc is not complete], this will be a comprehensive testcase and will automatically check for correctness.\n[*] Do not rely on the correctness checker for time complexity, rely purely on the time complexity tables given ahead\n[!] Unlike last time, this testcase will strictly adhere to possible operations, any errors indicate an issue in your code.\n[!] If you think that there is an error in the testcase or if I'm missing something, dm me whatsapp pr")
     stupid_heap = StupidHeap(lambda x: x, [1, 2, 3, 4, 5])
     test_heap = Heap(lambda x, y: x < y, [1, 2, 3, 4, 5])
     for i in progress_bar(range(n), "Random Heap Operations".ljust(format_len)):
@@ -180,6 +180,58 @@ def main(n=10**3, m=20):
         else:
             if stupid_heap.empty() ^ test_heap.empty():
                 print(f"\n[!] Error while checking if heap is empty, expected {stupid_heap.empty()}, received {test_heap.empty()}")
+                exit(1)
+    to_add = [(1, 1, 8), (2, 2, 7), (3, 4, 4), (4, 5, 1)]
+    test_treasury = StrawHatTreasury(3)
+    for i in progress_bar(range(4), "Piazza TC1".ljust(format_len)):
+        stupid_treasury = Manual(to_add[:i+1], 3)
+        test_treasury.add_treasure(Treasure(to_add[i][0], to_add[i][2], to_add[i][1]))
+        completion_times = test_treasury.get_completion_time()
+        for j in range(10):
+            stupid_treasury.tick()
+        stupid_completion_times = stupid_treasury.get_completion_time()
+        for j in range(i+1):
+            if completion_times[j].completion_time != stupid_completion_times[j][1]:
+                print(f"\n[!] Error in completion times, expected {stupid_completion_times[j]}, received {(completion_times[j].id, completion_times[j].completion_time)}")
+                exit(1)
+    to_add = [(1000, 1, 1000000000), (1001, 300000000, 2000000000), (1002, 400000000, 100000000), (1003, 600000000, 5000000000), (1004, 700000000, 1200000000)]
+    test_treasury = StrawHatTreasury(2)
+    expected_output = [
+        [(1000, 1000000001)],
+        [(1000, 1000000001), (1001, 2300000000)],
+        [(1000, 1100000001), (1001, 2300000000), (1002, 500000000)],
+        [(1000, 1100000001), (1001, 2300000000), (1002, 500000000), (1003, 6100000001)],
+        [(1000, 1100000001), (1001, 2300000000), (1002, 500000000), (1003, 6100000001), (1004, 3500000000)]
+    ]
+    for i in progress_bar(range(5), "Piazza TC2".ljust(format_len)):
+        test_treasury.add_treasure(Treasure(to_add[i][0], to_add[i][2], to_add[i][1]))
+        completion_times = test_treasury.get_completion_time()
+        for j in range(i+1):
+            if completion_times[j].id != expected_output[i][j][0] or completion_times[j].completion_time != expected_output[i][j][1]:
+                print(f"\n[!] Error in completion times, expected {expected_output[i][j]}, received {(completion_times[j].id, completion_times[j].completion_time)}")
+                exit(1)
+    to_add= [
+        (1, 1, 8),
+        (2, 2, 7),
+        (3, 4, 4),
+        (4, 5, 1),
+        (5, 6, 4),
+        (6, 7, 4),
+        (7, 30, 5),
+        (8, 31, 4),
+        (9, 32, 6)
+    ]
+    test_treasury = StrawHatTreasury(3)
+    for i in progress_bar(range(len(to_add)), "Bansal TC".ljust(format_len)):
+        stupid_treasury = Manual(to_add[:i+1], 3)
+        test_treasury.add_treasure(Treasure(to_add[i][0], to_add[i][2], to_add[i][1]))
+        completion_times = test_treasury.get_completion_time()
+        for j in range(50):
+            stupid_treasury.tick()
+        stupid_completion_times = stupid_treasury.get_completion_time()
+        for j in range(i+1):
+            if completion_times[j].completion_time != stupid_completion_times[j][1]:
+                print(f"\n[!] Error in completion times, expected {stupid_completion_times[j]}, received {(completion_times[j].id, completion_times[j].completion_time)}")
                 exit(1)
     test_treasury = StrawHatTreasury(workers)
     last_added = 0
@@ -256,11 +308,81 @@ def main(n=10**3, m=20):
                         print(f"\n[!] Running get_completion_time() twice gave different results at index ({k}), this should not happen.")
                         exit(1)
             else:
+                print(completion_times[j - 1].id,completion_times[j - 1].completion_time,stupid_completion_times[j - 1])
                 if completion_times[j - 1].completion_time != stupid_completion_times[j - 1][1]:
-                    print(f"\n[!] Error in completion times, expected {stupid_completion_times[j - 1]}, received {(completion_times[j - 1].id, completion_times[j - 1].arrival_time)}")
-                    exit(1)
-
-    print("[+] All testcases passed!!")
+                    print(f"\n[!] Error in completion times, expected {stupid_completion_times[j - 1]}, received {(completion_times[j - 1].id, completion_times[j - 1].completion_time)}")
+                    # exit(1)
+    print("[+] Correctness checked successfully, no errors found.")
+    print("[*] Checking Time Complexity")
+    n_values = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576]
+    m_values = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576]
+    print("-" * 54)
+    for n in n_values:
+        print(f"| add_treasure() | n = {str(n).ljust(7)} | m = 10 | ", end="")
+        test_treasury = StrawHatTreasury(10)
+        last_added = 0
+        for i in range(n):
+            r = random.randint(1, 5)
+            test_treasury.add_treasure(Treasure(i, 10 ** 9, last_added + 10 ** 9 * r))
+            last_added += 10 ** 9 * r
+        start_time = time.perf_counter_ns()
+        test_treasury.add_treasure(Treasure(n, 10 ** 9, last_added + random.randint(1,5) * 10 ** 9))
+        end_time = time.perf_counter_ns()
+        print_str = f'{(end_time-start_time)/1000000:.4f}ms'.ljust(10)
+        print(f'{print_str} |')
+    print("-" * 62)
+    for n in n_values:
+        test_treasury = StrawHatTreasury(10)
+        last_added = 0
+        print(f"| get_completion_time() | n = {str(n).ljust(7)} | m = 10 | ", end="")
+        for i in range(n):
+            r = random.randint(1, 5)
+            test_treasury.add_treasure(Treasure(i, 10 ** 9, last_added + 10 ** 9 * r))
+            last_added += 10 ** 9 * r
+        start_time = time.perf_counter_ns()
+        test_treasury.get_completion_time()
+        end_time = time.perf_counter_ns()
+        print_str = f'{(end_time-start_time)/1000000:.4f}ms'.ljust(11)
+        print(f'{print_str} |')
+    print("-" * 62)
+    for m in m_values:
+        print(f"| add_treasure() | n = 20 | m = {str(m).ljust(8)} | ", end="")
+        test_treasury = StrawHatTreasury(m)
+        last_added = 0
+        for i in range(20):
+            r = random.randint(1, 5)
+            test_treasury.add_treasure(Treasure(i, 10 ** 9, last_added + 10 ** 9 * r))
+            last_added += 10 ** 9 * r
+        start_time = time.perf_counter_ns()
+        test_treasury.add_treasure(Treasure(20, 10 ** 9, last_added + random.randint(1,5) * 10 ** 9))
+        end_time = time.perf_counter_ns()
+        print_str = f'{(end_time-start_time)/1000000:.4f}ms'.ljust(10)
+        print(f'{print_str} |')
+    print("-" * 62)
+    for m in m_values:
+        print(f"| get_completion_time() | n = 20 | m = {str(m).ljust(8)} | ", end="")
+        test_treasury = StrawHatTreasury(m)
+        last_added = 0
+        for i in range(20):
+            r = random.randint(1, 5)
+            test_treasury.add_treasure(Treasure(i, 10 ** 9, last_added + 10 ** 9 * r))
+            last_added += 10 ** 9 * r
+        start_time = time.perf_counter_ns()
+        test_treasury.get_completion_time()
+        end_time = time.perf_counter_ns()
+        print_str = f'{(end_time-start_time)/1000000:.4f}ms'.ljust(10)
+        print(f'{print_str} |')
+    print("-" * 62)
+    for m in m_values:
+        print(f"| StrawHatTreasury() | m = {str(m).ljust(8)} | ", end="")
+        start_time = time.perf_counter_ns()
+        StrawHatTreasury(m)
+        end_time = time.perf_counter_ns()
+        print_str = f'{(end_time-start_time)/1000000:.4f}ms'.ljust(11)
+        print(f'{print_str} |')
+    print("-" * 51)
+    print("[*] ^^ Check your time complexities manually, ensure that they scale how you expect them to ^^")
+    print("[+] All checks done!!")
 
 
 if __name__ == "__main__":

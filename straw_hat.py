@@ -1,7 +1,6 @@
 '''
     This file contains the class definition for the StrawHat class.
 '''
-from functools import cmp_to_key
 from crewmate import CrewMate
 from heap import Heap
 from treasure import Treasure
@@ -19,8 +18,8 @@ class StrawHatTreasury:
     def compare_func1(self,crew1:CrewMate,crew2:CrewMate):
         return crew1.load < crew2.load
 
-    def compare_func2(self,treasure1:Treasure,treasure2:Treasure):
-        return treasure2.id > treasure1.id
+    # def compare_func2(self,treasure1:Treasure,treasure2:Treasure):
+    #     return treasure2.id < treasure1.id
 
     def add_treasure(self, treasure:Treasure):
         '''
@@ -35,13 +34,13 @@ class StrawHatTreasury:
                     m : Number of Crew Mates
                     n : Number of Treasures
         '''
+        self.treasure_list.append(treasure)
         self.sec_last_time = self.last_time
         self.last_time = treasure.arrival_time
         time_diff = self.last_time - self.sec_last_time
         for i in self.crew_heap.init_array:
             i.load -= time_diff
             if i.load < 0 : i.load = 0
-        self.treasure_list.append(treasure)
         temp = self.crew_heap.extract()
         temp.add_treasure_in_crew(treasure)
         self.crew_heap.insert(temp)
@@ -61,7 +60,7 @@ class StrawHatTreasury:
         '''
         for j in self.crew_heap.init_array :
             j.just_completion_time()
-        return sorted(self.treasure_list,key=cmp_to_key(self.compare_func2))
+        return sorted(self.treasure_list, key=lambda x: x.id)
 
 # #################   TESTING #################
 # print("_"*20,"start testing","_"*20)
