@@ -9,18 +9,11 @@ class StrawHatTreasury:
     def __init__(self, m):
         self.number = m
         self.last_time = 0
-        self.sec_last_time = 0
-        self.crew_heap = Heap(self.compare_func1,[])
-        for i in range(m):
-            self.crew_heap.insert(CrewMate())
+        self.crew_heap = Heap(self.compare_func1,[CrewMate() for i in range(m)])
         self.treasure_list = []
-
 
     def compare_func1(self,crew1:CrewMate,crew2:CrewMate):
         return crew1.curr_load(self.last_time) < crew2.curr_load(self.last_time)
-
-    # def compare_func2(self,treasure1:Treasure,treasure2:Treasure):
-    #     return treasure2.id < treasure1.id
 
     def add_treasure(self, treasure:Treasure):
         '''
@@ -36,12 +29,7 @@ class StrawHatTreasury:
                     n : Number of Treasures
         '''
         self.treasure_list.append(treasure)
-        # self.sec_last_time = self.last_time
         self.last_time = treasure.arrival_time
-        # time_diff = self.last_time - self.sec_last_time
-        # for i in self.crew_heap.init_array:
-        #     i.load -= time_diff
-        #     if i.load < 0 : i.load = 0
         temp = self.crew_heap.extract()
         temp.add_treasure_in_crew(treasure)
         self.crew_heap.insert(temp)
@@ -62,90 +50,3 @@ class StrawHatTreasury:
         for j in self.crew_heap.init_array :
             j.just_completion_time()
         return sorted(self.treasure_list, key=lambda x: x.id)
-
-# #################   TESTING #################
-# print("_"*20,"start testing","_"*20)
-#
-# # Initialize with 3 crew members
-# straw = StrawHatTreasury(3)
-#
-# # 10 treasures with some having the same arrival time (collisions)
-# treasure1 = Treasure(1001, 5, 1)  # Arrives at time 1
-# straw.add_treasure(treasure1)
-# print("load-", [i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# treasure2 = Treasure(1002, 4, 2)  # Arrives at time 2
-# straw.add_treasure(treasure2)
-# print("load-", [i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# treasure3 = Treasure(1003, 6, 3)  # Arrives at time 3
-# straw.add_treasure(treasure3)
-# print("load-", [i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# # Collision at time 4: 3 treasures arrive at the same time
-# treasure4 = Treasure(1004, 7, 4)  # Arrives at time 4
-# straw.add_treasure(treasure4)
-# print("load-", [i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# # Additional treasures arriving in sequence
-# treasure7 = Treasure(1007, 3, 5)  # Arrives at time 5
-# straw.add_treasure(treasure7)
-# print("load-", [i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# treasure8 = Treasure(1008, 9, 6)  # Arrives at time 6
-# straw.add_treasure(treasure8)
-# print("load-", [i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# treasure9 = Treasure(1009, 4, 7)  # Arrives at time 7
-# straw.add_treasure(treasure9)
-# print("load-", [i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# treasure10 = Treasure(1010, 1, 8)  # Arrives at time 8
-# straw.add_treasure(treasure10)
-# print("load-", [i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-#
-#
-# #################   TESTING #################
-# print("_"*20,"start testing","_"*20)
-#
-# straw = StrawHatTreasury(3)
-# treasure1 = Treasure(1001,8,1)
-# straw.add_treasure(treasure1)
-# print("load-",[i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# treasure2 = Treasure(1002,7,2)
-# straw.add_treasure(treasure2)
-# print("load-",[i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# treasure3 = Treasure(1003,4,4)
-# straw.add_treasure(treasure3)
-# print("load-",[i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)
-#
-# treasure4 = Treasure(1004,1,5)
-# straw.add_treasure(treasure4)
-# print("load-",[i.load for i in straw.crew_heap.init_array])
-# straw.get_completion_time()
-# print("-"*50)

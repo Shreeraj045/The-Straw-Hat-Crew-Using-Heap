@@ -45,7 +45,7 @@ class Heap:
         return  self._right(index) < len(self.init_array)
 
     def _swap(self, index1, index2):
-        self.init_array[index1], self.init_array[index2] = self.init_array[index2], self.init_array[index1]
+        self.   init_array[index1], self.init_array[index2] = self.init_array[index2], self.init_array[index1]
 
     def _upheap(self, index):
         parent = self._parent(index)
@@ -67,3 +67,6 @@ class Heap:
                 self._downheap(small_child)
     def copy_heap(self):
         return self.init_array[:]
+
+heap = Heap(lambda x, y: x < y, [1,5,15,23,22,16,17])
+print(heap.init_array)
