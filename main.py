@@ -308,10 +308,9 @@ def main(n=10**3, m=20):
                         print(f"\n[!] Running get_completion_time() twice gave different results at index ({k}), this should not happen.")
                         exit(1)
             else:
-                print(completion_times[j - 1].id,completion_times[j - 1].completion_time,stupid_completion_times[j - 1])
                 if completion_times[j - 1].completion_time != stupid_completion_times[j - 1][1]:
-                    print(f"\n[!] Error in completion times, expected {stupid_completion_times[j - 1]}, received {(completion_times[j - 1].id, completion_times[j - 1].completion_time)}")
-                    # exit(1)
+                    print(f"\n[!] Error in completion times, expected {stupid_completion_times[j - 1]}, received {(completion_times[j - 1].id, completion_times[j - 1].arrival_time)}")
+                    exit(1)
     print("[+] Correctness checked successfully, no errors found.")
     print("[*] Checking Time Complexity")
     n_values = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576]

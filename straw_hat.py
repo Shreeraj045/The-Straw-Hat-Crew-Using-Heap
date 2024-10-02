@@ -8,15 +8,16 @@ from treasure import Treasure
 class StrawHatTreasury:
     def __init__(self, m):
         self.number = m
+        self.last_time = 0
+        self.sec_last_time = 0
         self.crew_heap = Heap(self.compare_func1,[])
         for i in range(m):
             self.crew_heap.insert(CrewMate())
         self.treasure_list = []
-        self.last_time = 0
-        self.sec_last_time = 0
+
 
     def compare_func1(self,crew1:CrewMate,crew2:CrewMate):
-        return crew1.load < crew2.load
+        return crew1.curr_load(self.last_time) < crew2.curr_load(self.last_time)
 
     # def compare_func2(self,treasure1:Treasure,treasure2:Treasure):
     #     return treasure2.id < treasure1.id
@@ -35,12 +36,12 @@ class StrawHatTreasury:
                     n : Number of Treasures
         '''
         self.treasure_list.append(treasure)
-        self.sec_last_time = self.last_time
+        # self.sec_last_time = self.last_time
         self.last_time = treasure.arrival_time
-        time_diff = self.last_time - self.sec_last_time
-        for i in self.crew_heap.init_array:
-            i.load -= time_diff
-            if i.load < 0 : i.load = 0
+        # time_diff = self.last_time - self.sec_last_time
+        # for i in self.crew_heap.init_array:
+        #     i.load -= time_diff
+        #     if i.load < 0 : i.load = 0
         temp = self.crew_heap.extract()
         temp.add_treasure_in_crew(treasure)
         self.crew_heap.insert(temp)

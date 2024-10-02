@@ -16,18 +16,18 @@ class CrewMate:
             return tresure1.id < tresure2.id
 
     def add_treasure_in_crew(self,treasure:Treasure):
-        # if self.treasure_heap.top() == None:
-        #     self.load += treasure.arrival_time
-        self.load += treasure.size
         self.sec_last_time = self.last_time
         self.last_time = treasure.arrival_time
         self.change_size_in_time()
+        if self.treasure_heap.top() == None:
+            # print("HELOOOOOOOOOO",self.load)
+            self.load = 0
+            self.load += treasure.arrival_time
+        self.load += treasure.size
         self.treasure_heap.insert(treasure)
 
     def change_size_in_time(self):
         time = self.last_time - self.sec_last_time
-        # self.load -= time
-        if self.load < 0 : self.load = 0
         c = self.sec_last_time
         if self.sec_last_time != 0 :
             while time > 0:
@@ -52,13 +52,14 @@ class CrewMate:
         c = self.last_time
         while self.treasure_heap.top() != None :
             c += self.treasure_heap.top().size
+            # self.load -= self.treasure_heap.top().size
             self.treasure_heap.top().completion_time = c
             self.treasure_heap.extract()
         for i in array:
             self.treasure_heap.insert(i)
 
     def curr_load(self,time):
-        curr_load = self.load - (time-self.last_time)
+        curr_load = self.load - time
         if curr_load <0 :curr_load = 0
         return curr_load
 
