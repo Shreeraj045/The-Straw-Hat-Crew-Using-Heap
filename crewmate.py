@@ -20,7 +20,6 @@ class CrewMate:
         self.last_time = treasure.arrival_time
         self.change_size_in_time()
         if self.treasure_heap.top() == None:
-            # print("HELOOOOOOOOOO",self.load)
             self.load = 0
             self.load += treasure.arrival_time
         self.load += treasure.size
